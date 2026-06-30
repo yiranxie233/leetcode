@@ -19,27 +19,40 @@
 """
 from typing import List
 
+# class Solution:
+#     def longestConsecutive(self, nums: List[int]) -> int:
+#         answer = []
+#         count = 1
+#         sort_num = sorted(list(set(nums)))
+#         if len(nums) == 0:
+#             return 0
+#         elif len(sort_num) == 1:
+#             return 1
+#         else:
+#             for idx in range(len(sort_num)-1):
+#                 if sort_num[idx] + 1 == sort_num[idx+1]:
+#                     count += 1
+#                     if idx == len(sort_num) - 2:
+#                         answer.append(count)
+#                 else:
+#                     answer.append(count)
+#                     count = 1
+#             return max(answer)
+
+
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        answer = []
-        count = 1
-        sort_num = sorted(list(set(nums)))
-        if len(nums) == 0:
-            return 0
-        elif len(sort_num) == 1:
-            return 1
-        else:
-            for idx in range(len(sort_num)-1):
-                if sort_num[idx] + 1 == sort_num[idx+1]:
-                    count += 1
-                    if idx == len(sort_num) - 2:
-                        answer.append(count)
-                else:
-                    answer.append(count)
-                    count = 1
-            return max(answer)
-
+        st = set(nums)
+        ans = 0
+        for x in st:
+            if x - 1 in st:
+                continue
+            y = x + 1
+            while y in st:
+                y += 1
+            ans = max(ans, y - x)
+        return ans
 
 
 s = Solution()
-print(s.longestConsecutive([9]))
+print(s.longestConsecutive([100,4,200,1,3,2]))
